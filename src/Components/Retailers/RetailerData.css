@@ -1,0 +1,10 @@
+.retailerDiv {
+    /* background-repeat: repeat; */
+    display: flex;
+}
+
+.ordersdiv {
+    margin-left: 20%;
+    margin-top: 40px;
+    width: 200px;
+}

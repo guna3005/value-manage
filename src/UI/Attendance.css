@@ -1,0 +1,69 @@
+.maindiv {
+    background-color: white;
+    height: 400px;
+    margin-left: 400px;
+    min-width: 500px;
+    /* border: 2px black; */
+    border-radius: 15px;
+}
+
+.flexdiv {
+    display: flex;
+    
+}
+
+.btnclass {
+    border-radius: 0px !important;
+    margin-top: 10px;
+}
+
+.leftbtn {
+    margin-left: 100px !important;
+    
+}
+
+.calenderdiv {
+    background-color: cyan;
+    width: 100%;
+    height: 400px;
+    margin-top: 20px;
+}
+
+.tableclass{
+    width: 100%;
+    height: 400px;
+    background-color: cyan;
+}
+
+.monthbutton {
+    width: 80px;
+}
+
+.tablehead th{
+    text-align: center;
+    background-color: lightgrey;
+    padding: 4px;
+}
+
+.dateboxes td{
+    text-align: center;
+    border: 0.5px solid black;
+    background-color: white;
+    padding: 0;
+}
+
+.present {
+    background-color: lightgreen !important;
+}
+
+.absent {
+    background-color: rgb(240, 146, 146) !important;
+}
+
+.todaybutton {
+    border: 0px;
+    background-color: lightgrey !important;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
