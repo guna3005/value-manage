@@ -3,7 +3,7 @@ import NavBar from "../../UI/NavBar";
 
 import "./AllRetailer.css";
 import "bootstrap/dist/css/bootstrap.css";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import RetailerRender from "./RetailerRender";
 
 const AllRetailer = (props) => {
@@ -14,25 +14,21 @@ const AllRetailer = (props) => {
 
   let data = [];
   useEffect(() => {
-    
-  
+    return () => {
+      async function fetchRetailers() {
+        const response = await fetch(
+          "http://192.168.29.12:8080/api/v1/representatives/1/retailers"
+        );
+        data = await response.json();
+        // console.log(data.content);
+        setRetailers(data.content);
+      }
+      fetchRetailers();
+    };
+  }, []);
 
-  return () => {
-    async function fetchRetailers() {
-      const response = await fetch("http://192.168.29.12:8080/api/v1/representatives/1/retailers");
-      data = await response.json();
-      console.log(data.content);
-      setRetailers(data.content);
-    }
-    fetchRetailers();
-  }
-  },[])
+  // console.log(data);
 
-  
-  
-
-  console.log(data);
-  
   return (
     <div style={{ display: "flex" }}>
       <NavBar />

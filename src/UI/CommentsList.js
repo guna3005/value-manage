@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Comments from "./Comments";
 import NewComments from "./NewComments";
 const CommentsList = (props) => {
+
+  // const [content, setContent] = useState([]);
+
+  
+  
   return (
     <div className="App"  >
       <section style={{ backgroundColor:" #bdddff"}}>

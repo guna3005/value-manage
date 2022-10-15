@@ -7,6 +7,7 @@ import './AllRetailer.css'
 const RetailerRender = (props) => {
     const disptach = useDispatch();
   const retailerChangeHandler = () =>{
+       
       disptach(CurrentActiveActions.changeRetailer(props.data.id))
   }
   // console.log(props.dist,props.dist !== null,props.dist !== undefined);

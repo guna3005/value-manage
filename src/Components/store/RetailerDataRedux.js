@@ -203,6 +203,7 @@ const RetailerDataSlice = createSlice({
 
       state[index].comments.push(req_comment);
     },
+    
   },
 });
 

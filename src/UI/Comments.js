@@ -1,7 +1,28 @@
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import "./Comments.css";
 
 const Comments = (props) => {
     // console.log(props.id)
+
+  
+
+  // useEffect(() => {
+  //   first
+  
+  //   return () => {
+  //     async function fetchRetailers() {
+  //       const response = await fetch("http://192.168.29.12:8080/api/v1/retailers");
+  //       data = await response.json();
+  //       // console.log(data.content);
+  //       setRetailers(data.content);
+  //     }
+  //     fetchRetailers();
+  //   }
+  //   }
+  // }, [third])
+
+  
   return (
     <>
       <div className="card-body p-4 justify-content-start" style={{border:"1px solid black"}}>

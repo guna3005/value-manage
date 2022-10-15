@@ -37,7 +37,7 @@ const AddRetailer = () => {
       fetch("http://192.168.29.12:8080/api/v1/representatives/1/retailers/new",{
         method: 'POST' ,
         body : JSON.stringify(userDataObject),
-        headers : {
+        headers : { 
           'Content-Type' : 'application/json'
         }
       }

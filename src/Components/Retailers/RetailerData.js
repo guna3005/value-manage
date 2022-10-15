@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import CommentsList from "../../UI/CommentsList";
@@ -20,6 +20,28 @@ const RetailerData = () => {
   const orderssOpenHandler = () =>{
     setPage("orders")
   }
+  let retailer = useSelector(state => state.activeMembers.retailer_id)
+  const [data,setData ] = useState([]);
+  const [orders,setOrders] = useState([])
+  // retailer = "1";
+  console.log(retailer);
+  // console.log("http://192.168.29.12:8080/api/v1/representatives/1/retailers/" + retailer.toString());
+  useEffect(() => {
+    return () => {
+      async function fetchRetailers() {
+        const response = await fetch(
+          "http://192.168.29.12:8080/api/v1/representatives/1/retailers/" + retailer.toString()
+        );
+        let data_new = await response.json();
+        console.log(data_new.content);
+        // setData(data_new[0]);
+        console.log(data_new.content[0].comments);
+        setData(data_new.content[0].comments)
+        setOrders(data_new.content[0].orders)
+      }
+      fetchRetailers();
+    };
+  }, []);
   return (
     <div className="retailerDiv">
       <NavBar />
@@ -27,8 +49,8 @@ const RetailerData = () => {
         <button type="button" className="btn btn-primary ordersdiv" onClick={commentsOpenHandler}>COMMENTS</button>
         <button type="button" className="btn btn-primary ordersdiv" onClick={orderssOpenHandler}>ORDERS</button>
         <div style={{ width: "100%" }}>
-          {page === "comments" && <CommentsList data={retailerdata.comments}/>}
-          {page === "orders" && <OrdersList data={retailerdata.orders} />}
+          {page === "comments" && <CommentsList data={data}/>}
+          {page === "orders" && <OrdersList data={orders} />}
         </div>
       </div>
     </div>
