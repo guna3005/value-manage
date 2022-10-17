@@ -11,12 +11,13 @@ import Report from "./UI/Report";
 import RetailerData from "./Components/Retailers/RetailerData";
 import { useSelector } from "react-redux";
 import AllRepresentatives from "./Components/Representatives/AllRepresentatives";
-import AllDistributors from './Components/Representatives/AllDistributors'
+import AllDistributors from "./Components/Representatives/AllDistributors";
+import RepData from "./Components/Representatives/RepData";
+import DisplayFlex from "./Components/Display/DisplayFlex";
 
 function App() {
   let user = useSelector((state) => state.users.user);
-  // user = "rep"
-  // console.log(user, "in app");
+  console.log(user);
   return (
     <>
       <Route path="/" exact>
@@ -25,10 +26,17 @@ function App() {
       <Route path="/login" exact>
         <Login />
       </Route>
+      {user === "" && <Switch>
+        <Route path="/*">
+          <Redirect to="/login" />
+        </Route>
+        </Switch>}
       {user === "rep" && (
         <Switch>
           <Route path="/all-retailers" exact>
-            <AllRetailer />
+            <DisplayFlex>
+              <AllRetailer />
+            </DisplayFlex>
           </Route>
 
           <Route path="/all-retailers/:retailerid" exact>
@@ -41,8 +49,8 @@ function App() {
       )}
 
       {user === "manager" && (
-        <Switch >
-           <Route path="/all-representatives" exact>
+        <Switch>
+          <Route path="/all-representatives" exact>
             <AllRepresentatives />
           </Route>
           <Route path="/all-distributors" exact>
@@ -51,14 +59,21 @@ function App() {
           <Route path="/add-distributor" exact>
             <AddRetailer />
           </Route>
+          <Route path="/rep-data/:repid" exact>
+            <RepData />
+          </Route>
         </Switch>
       )}
 
       <Route path="/report" exact>
-        <Report />
+        <DisplayFlex>
+          <Report type={"update"} />
+        </DisplayFlex>
       </Route>
       <Route path="/attendence" exact>
-        <Attendence />
+        <DisplayFlex>
+          <Attendence />
+        </DisplayFlex>
       </Route>
       <Route path="/comments" exact>
         <CommentsList />

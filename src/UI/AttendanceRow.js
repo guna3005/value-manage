@@ -9,29 +9,20 @@ const AttendanceRow = (props) => {
     
     const year = useSelector(state => state.attendance.year)
     const month = useSelector(state => state.attendance.month)
+    const token = useSelector(state => state.users.token)
     // const mark_attendance = useSelector(state => state.attendance.attendence_marked)
     const dispatch = useDispatch()
     const [dates, setDates] = useState([])
-    useEffect(() => {
-        async function fetchAttendance() {
-            const response = await fetch("http://192.168.29.12:8080/api/v1/representatives/1/attendence/all");
-            let dates_arr = await response.json();
-            // console.log(data.content);
-            let new_dates = dates_arr.map(data => new Date(data.date).getTime())
-            setDates(new_dates);
-          }
-          fetchAttendance();
-    }, [])
-    
     let data = null;
     console.log(dates);
 
     const markattendanceHandler = () => {
-        fetch("http://192.168.29.12:8080/api/v1/representatives/1/attendance/new",{
+        fetch("http://192.168.29.12:8080/api/v1/representatives/attendance/new",{
         method: 'POST' ,
         body : JSON.stringify({date : null}),
         headers : { 
-          'Content-Type' : 'application/json'
+          'Content-Type' : 'application/json',
+          "accessToken" : "Bearer "+token,
         }
       })
         dispatch(AttendanceActions.addAttendance())
@@ -49,9 +40,16 @@ const AttendanceRow = (props) => {
         const is_today = (val.getDate() === today.getDate() && val.getMonth() === today.getMonth() && val.getFullYear() === today.getFullYear())
         if(is_today){
             let index = dates.findIndex(date => curr_date-date <846000)
-            if (index !== -1){
-                data = "T"
-                return "present"
+           
+            if(props.type === "view"){
+                if (index !== -1){
+                    data = "T"
+                    return "present"
+                }
+                else{
+                    data = "T"
+                    return "absent"
+                }
             }
             data = <button onClick={markattendanceHandler} className='todaybutton'>T</button>
             return "today"

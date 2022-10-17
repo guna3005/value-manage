@@ -1,5 +1,5 @@
 import {  useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { UserActions } from "../Components/store";
 import {AiFillDashboard} from 'react-icons/ai'
 import {BiLogOut,BiMessageSquareAdd,BiGroup} from 'react-icons/bi'
@@ -8,12 +8,15 @@ import { BsFillCalendarCheckFill,BsFillBarChartFill,BsCircleHalf}  from 'react-i
 const NavBar = (props) => {
     
     const dispatch = useDispatch();
-//     const history = useHistory();
+    const history = useHistory();
   const user = useSelector((state) => state.users.user);
   const state = useSelector((state) => state);
   // console.log(user, state, " in navbar");
   const logoutHandler = () =>{
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
     dispatch(UserActions.setUser(""))
+    history.replace("/login")
   }
   return (
     <main className="d-flex flex-nowrap" style={{"height":"100vh",backgroundColor:"#bdddff"}}>
@@ -87,10 +90,10 @@ const NavBar = (props) => {
       </NavLink>
     </li>
     <li>
-      <NavLink to="/" onClick={logoutHandler} activeClassName="inactive" className="nav-link text-dark">
+      <button to="/" onClick={logoutHandler} className="nav-link text-dark">
       <BiLogOut className="bi me-2" width={16} height={16} />
         Log Out
-      </NavLink>
+      </button>
     </li>
   </ul>
   <hr />

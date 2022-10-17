@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+// import { useSelector } from "react-redux";
 import Comments from "./Comments";
 import NewComments from "./NewComments";
 const CommentsList = (props) => {

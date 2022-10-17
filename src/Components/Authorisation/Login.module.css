@@ -12,3 +12,10 @@
 
 }
 
+.inputerror {
+    border-color: red !important;
+    background-color: black;
+}
+.formclassininput button{
+    margin-top: 20px;
+}

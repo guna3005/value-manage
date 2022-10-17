@@ -35,9 +35,10 @@ const Attendence = (props) => {
   const increaseYearHandler = () =>{
     dispatch(AttendanceActions.increaseYear())
   }
+  
   return (
-    <div className="flexdiv">
-      <NavBar />
+    // <div className="flexdiv">
+    //   <NavBar />
       <div className="maindiv">
         <div className="headerdiv">
           <button type="button" onClick={decreaseMonthHandler} className="btn btn-primary btn-sm leftbtn btnclass">
@@ -73,18 +74,18 @@ const Attendence = (props) => {
                                   </tr>
                               </thead>
                               <tbody>
-                                  { arr[6] != null && <AttendanceRow arr = {arr} st = {0} />}
-                                  <AttendanceRow arr = {arr} st = {7}/>
-                                  <AttendanceRow arr = {arr} st = {14}/>
-                                  <AttendanceRow arr = {arr} st = {21}/>
-                                  <AttendanceRow arr = {arr} st = {28}/>
+                                  { arr[6] != null && <AttendanceRow arr = {arr} st = {0} dates ={props.dates} type={props.type} />}
+                                  <AttendanceRow arr = {arr} st = {7} dates ={props.dates} type={props.type}/>
+                                  <AttendanceRow arr = {arr} st = {14} dates ={props.dates} type={props.type}/>
+                                  <AttendanceRow arr = {arr} st = {21} dates ={props.dates} type={props.type} />
+                                  <AttendanceRow arr = {arr} st = {28} dates ={props.dates} type={props.type}/>
                                   { arr[35] != null && <AttendanceRow arr = {arr} st = {35}/>}
                                   </tbody>
                           </table>
           </div>
         </div>
       </div>
-    </div>
+    // </div>
   );
 };
 

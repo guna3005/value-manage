@@ -4,9 +4,12 @@ import RetailerDataSlice from "./RetailerDataRedux";
 import currentActiveSlice from "./ActiveMembers";
 import AttendanceSlice from "./AttandanceStore";
 
+let user = localStorage.getItem("user") ? localStorage.getItem("user") : "";
+let token = localStorage.getItem("token") ? localStorage.getItem("token") : "";
+let in_it = {user : user,token : token}
 const userSlice = createSlice({
   name: "users",
-  initialState: { user:"rep"},
+  initialState: in_it,
   reducers: {
     setUser(state, actions) {
       state.user = actions.payload;

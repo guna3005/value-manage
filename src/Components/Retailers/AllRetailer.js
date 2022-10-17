@@ -5,22 +5,32 @@ import "./AllRetailer.css";
 import "bootstrap/dist/css/bootstrap.css";
 // import { useSelector } from "react-redux";
 import RetailerRender from "./RetailerRender";
+import { useSelector } from "react-redux";
 
 const AllRetailer = (props) => {
-  //   const history = useHistory();
+  // //   const history = useHistory();
   // let Fake_retailers = useSelector((state) => state.retailers);
+  // console.log(Fake_retailers);
   const [retailers, setRetailers] = useState([]);
-  // const user = useSelector(state => state.users.user)
+  const token = useSelector(state => state.users.token)
 
-  let data = [];
   useEffect(() => {
     return () => {
       async function fetchRetailers() {
         const response = await fetch(
-          "http://192.168.29.12:8080/api/v1/representatives/1/retailers"
+          "http://localhost:8080/api/v1/representatives/retailers",
+            {
+              method:"GET",
+              headers : 
+            {
+              "accessToken" : "Bearer "+token,
+              'Content-Type' : 'application/json',
+              'Access-Control-Allow-Origin': '*'
+            }
+            }
         );
-        data = await response.json();
-        // console.log(data.content);
+        const data = await response.json();
+        console.log(data.content);
         setRetailers(data.content);
       }
       fetchRetailers();
@@ -30,8 +40,8 @@ const AllRetailer = (props) => {
   // console.log(data);
 
   return (
-    <div style={{ display: "flex" }}>
-      <NavBar />
+    // <div style={{ display: "flex" }}>
+    //   <NavBar />
       <div className="divwithtable">
         <table className="reqtable table table-hover">
           <thead className="thead-dark" style={{ border: "0.5px solid black" }}>
@@ -51,7 +61,7 @@ const AllRetailer = (props) => {
           </tbody>
         </table>
       </div>
-    </div>
+    // </div>
   );
 };
 

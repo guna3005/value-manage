@@ -2,12 +2,14 @@
     margin-top: 10%;
     background-color: white;
     width: 500px;
-    height: 30%;
+    min-width: 500px;
+    height: auto;
     margin-left: 30%;
     padding: 20px;
     border-radius: 15px;
     text-align: left;
     margin-right: 400px;
+
 }
 
 .formflexdiv {
@@ -18,7 +20,9 @@
 }
 
 .forminputfeild{
-    margin: 10px;
+    /* margin: 10px; */
+    float: right;
+    margin-top: 10px;
 
 }
 

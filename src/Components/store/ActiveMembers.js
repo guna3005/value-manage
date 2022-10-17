@@ -11,6 +11,9 @@ const currentActiveSlice = createSlice({
     reducers : {
         changeRetailer(state,actions){
             state.retailer_id = actions.payload;
+        },
+        changeRep(state,actions) {
+            state.representative_id = actions.payload;
         }
     }
 })

@@ -1,13 +1,13 @@
 import React from 'react'
 import Form from './Form'
-import NavBar from './NavBar'
+// import NavBar from './NavBar'
 
-const Report = () => {
+const Report = (props) => {
   return (
-    <div style={{"display":"flex"}}>
-        <NavBar />
-        <Form />
-    </div>
+    // <div style={{"display":"flex"}}>
+    //     <NavBar />
+        <Form type = {props.type}/>
+    // {/* </div> */}
   )
 }
 
