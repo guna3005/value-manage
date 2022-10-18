@@ -3,15 +3,65 @@ import "./Attendance.css";
 import AttendanceRow from "./AttendanceRow";
 import { useDispatch, useSelector } from "react-redux";
 import { AttendanceActions } from "../Components/store/AttandanceStore";
+import { useEffect, useState } from "react";
 
 const noDaysInMonth  = (year, month) =>{
   return new Date(year, month, 0).getDate();
 }
 const Attendence = (props) => {
+  console.log("in addtendence");
   const year = useSelector(state => state.attendance.year)
   let month = useSelector(state => state.attendance.month)
   let firstDate = new Date(year,month-1,0).getDay();
-  console.log(firstDate)
+  let token = useSelector(state => state.users.token)
+  let user = useSelector(state => state.users.user)
+  let [dates , setDates ] = useState(props.dates)
+  useEffect(() => {
+    let attdata = []
+    console.log("fetching rep attendence",user,token);
+    if (user === "manager" && props.type==="update") {
+      async function fetchAttendance() {
+        const response = await fetch(
+          "http://localhost:8080/api/v1/manager/attendance/all",
+          {
+            method: "GET",
+            headers: {
+              "accessToken": "Bearer " + token,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        attdata = await response.json();
+        // req_dates = props.dates ? props.dates : attdata ;
+        console.log(attdata);
+        setDates(attdata)
+      }
+      fetchAttendance();
+    } 
+    else if (user === "rep" && props.type==="update") {
+      console.log("fetching rep attendence");
+      async function fetchAttendancerep() {
+        const response = await fetch(
+          "http://localhost:8080/api/v1/representatives/attendence/all",
+          {
+            method: "GET",
+            headers: {
+              "accessToken": "Bearer " + token,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        attdata = await response.json();
+        // req_dates = props.dates ? props.dates : attdata ;
+        setDates(attdata)
+      }
+      fetchAttendancerep();
+      
+    }
+    return () => {
+      
+    }
+  }, []) 
   const dispatch = useDispatch();
   const date = new Date();
   date.setMonth(month-1);
@@ -35,10 +85,8 @@ const Attendence = (props) => {
   const increaseYearHandler = () =>{
     dispatch(AttendanceActions.increaseYear())
   }
-  
+  console.log(dates);
   return (
-    // <div className="flexdiv">
-    //   <NavBar />
       <div className="maindiv">
         <div className="headerdiv">
           <button type="button" onClick={decreaseMonthHandler} className="btn btn-primary btn-sm leftbtn btnclass">
@@ -74,11 +122,11 @@ const Attendence = (props) => {
                                   </tr>
                               </thead>
                               <tbody>
-                                  { arr[6] != null && <AttendanceRow arr = {arr} st = {0} dates ={props.dates} type={props.type} />}
-                                  <AttendanceRow arr = {arr} st = {7} dates ={props.dates} type={props.type}/>
-                                  <AttendanceRow arr = {arr} st = {14} dates ={props.dates} type={props.type}/>
-                                  <AttendanceRow arr = {arr} st = {21} dates ={props.dates} type={props.type} />
-                                  <AttendanceRow arr = {arr} st = {28} dates ={props.dates} type={props.type}/>
+                                  { arr[6] != null && <AttendanceRow arr = {arr} st = {0} dates ={dates} type={props.type} />}
+                                  <AttendanceRow arr = {arr} st = {7} dates ={dates} type={props.type}/>
+                                  <AttendanceRow arr = {arr} st = {14} dates ={dates} type={props.type}/>
+                                  <AttendanceRow arr = {arr} st = {21} dates ={dates} type={props.type} />
+                                  <AttendanceRow arr = {arr} st = {28} dates ={dates} type={props.type}/>
                                   { arr[35] != null && <AttendanceRow arr = {arr} st = {35}/>}
                                   </tbody>
                           </table>

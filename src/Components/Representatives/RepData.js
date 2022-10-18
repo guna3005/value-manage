@@ -11,12 +11,6 @@ import "./RepData.css";
 
 const RepData = () => {
   const [curPage, setCurPage] = useState("report");
-  // let curPage = "reports"
-  //   useEffect(() => {
-  //     const curr_rep = useSelector(
-  //         (state) => state.activeMembers.representative_id
-  //       );
-  //   }, [third])
   const [dates, setDates] = useState([]);
   const token = useSelector((state) => state.users.token);
 
@@ -30,7 +24,7 @@ const RepData = () => {
         {
           method: "GET",
           headers: {
-            accessToken: "Bearer " + token,
+            "accessToken": "Bearer " + token,
             "Content-Type": "application/json",
           },
         }

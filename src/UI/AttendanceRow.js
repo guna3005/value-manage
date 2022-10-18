@@ -4,30 +4,34 @@ import { useDispatch, useSelector } from 'react-redux'
 import './Attendance.css'
 import { AttendanceActions } from '../Components/store/AttandanceStore'
 const AttendanceRow = (props) => {
-    // 
-    // const dates = useSelector(state => state.attendance.present)
-    
+    // console.log("hello");
     const year = useSelector(state => state.attendance.year)
     const month = useSelector(state => state.attendance.month)
     const token = useSelector(state => state.users.token)
-    // const mark_attendance = useSelector(state => state.attendance.attendence_marked)
     const dispatch = useDispatch()
-    const [dates, setDates] = useState([])
-    let data = null;
-    console.log(dates);
-
+    const user = useSelector(state => state.users.user)
+    let data = null;    
+    // console.log(props.dates);
+    const attdata  = props.dates;
+    
     const markattendanceHandler = () => {
-        fetch("http://192.168.29.12:8080/api/v1/representatives/attendance/new",{
-        method: 'POST' ,
-        body : JSON.stringify({date : null}),
-        headers : { 
-          'Content-Type' : 'application/json',
-          "accessToken" : "Bearer "+token,
+        const attendencemark = async () =>{
+            await fetch(`http://localhost:8080/api/v1/${user === "manager" ? "manager" : "representatives"}/attendance/new`,{
+                method: 'POST' ,
+                body : JSON.stringify({date : null}),
+                headers : { 
+                  'Content-Type' : 'application/json',
+                  "accessToken" : "Bearer "+token,
+                }
+              })
         }
-      })
-        dispatch(AttendanceActions.addAttendance())
+        attendencemark()
+        // setattdata(data => [...data,new Date()])
+
     }
     const setclass = (no) => {
+        // return "present"
+        // console.log(props.arr[props.st + no],attdata);
         data = null;
         if (props.arr[props.st + no] === null){
             return 
@@ -37,9 +41,13 @@ const AttendanceRow = (props) => {
         let val = new Date(year,month-1,props.arr[props.st + no]);
 
         let curr_date = val.getTime();
+        // console.log(curr_date,attdata);
+        // for (const i in attdata){
+        //     console.log(new Date(attdata[i].date),attdata[i],curr_date);
+        // }
         const is_today = (val.getDate() === today.getDate() && val.getMonth() === today.getMonth() && val.getFullYear() === today.getFullYear())
         if(is_today){
-            let index = dates.findIndex(date => curr_date-date <846000)
+            let index = attdata.findIndex(date => (curr_date-new Date(date.date).getTime()) < 846000)
            
             if(props.type === "view"){
                 if (index !== -1){
@@ -51,6 +59,10 @@ const AttendanceRow = (props) => {
                     return "absent"
                 }
             }
+            if (index !== -1){
+                data = "T"
+                return "present"
+            }
             data = <button onClick={markattendanceHandler} className='todaybutton'>T</button>
             return "today"
         }
@@ -58,15 +70,14 @@ const AttendanceRow = (props) => {
         if(today_time < curr_date){
             return 
         }
-        
-        let index = dates.findIndex(date => date === curr_date)
+        let index = attdata.findIndex(date => new Date(date.date).getTime() === curr_date)
         if (index === -1){
             return "absent"
         }
         return "present"
         
     }
-
+console.log(attdata);
   return (
     <tr className='dateboxes'>
         <td className={setclass(0)}>{data}</td>

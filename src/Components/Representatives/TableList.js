@@ -5,9 +5,6 @@ import RetailerRender from "../Retailers/RetailerRender";
 
 const TableList = (props) => {
   const Fake_retailers = useSelector((state) => state.retailers);
-  // console.log(props.dist,props);
-
-  // const user = useSelector(state => state.users.user)
   return (
     <>
       <div className="divwithtable">

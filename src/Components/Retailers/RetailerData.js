@@ -1,46 +1,73 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-// import { useParams } from "react-router-dom";
 import CommentsList from "../../UI/CommentsList";
 import NavBar from "../../UI/NavBar";
 import OrdersList from "../../UI/OrdersList";
 import "./RetailerData.css";
 
-
 const RetailerData = () => {
+  // console.log("welcome to retailer data");
+
   const [page, setPage] = useState("comments");
-  const Retailer_dummy_data = useSelector(state => state.RetailerData)
   const { retailerid } = useParams();
-  let retailerdata = Retailer_dummy_data.find((data) => {
-    return data.id === +retailerid;
-  });
-  let comments = retailerdata.comments
-  let orders = retailerdata.orders
+  const [retailer, setRetailer] = useState([]);
+  const token = useSelector((state) => state.users.token);
+  useEffect(() => {
+    const fetchRetailer = async () => {
+      // console.log("inside the fetch");
+      const response = await fetch(
+        "http://localhost:8080/api/v1/representatives/retailers/" + retailerid,
+        {
+          method: "GET",
+          headers: {
+            "accessToken": "Bearer " + token,
+            "Content-Type": "application/json",
+            
+          },
+        }
+      );
+      const data = await response.json();
+      console.log(data.content);
+      setRetailer(data.content);
+    };
+    fetchRetailer()
+    return () => {
+    }
+  }, [])
+  
+  
+  const commentsOpenHandler = () => {
+    setPage("comments");
+  };
+  const orderssOpenHandler = () => {
+    setPage("orders");
+  };
 
-  console.log(retailerdata,comments, orders);
-  const commentsOpenHandler = () =>{
-    setPage("comments")
-  }
-  const orderssOpenHandler = () =>{
-    setPage("orders")
-  }
-  let retailer = useSelector(state => state.activeMembers.retailer_id)
-  // const [data,setData ] = useState(data.comments);
-  // const [orders,setOrders] = useState(orders)
-  // retailer = "1";
-
-  console.log(comments,orders,);
-  // 
+  let comments = retailer.length > 0 ? retailer[0].comments : false;
+  let orders = retailer.length > 0 ? retailer[0].orders : false;
+  console.log(retailer, comments, orders);
   return (
     <div className="retailerDiv">
       <NavBar />
       <div style={{ width: "100%" }}>
-        <button type="button" className="btn btn-primary ordersdiv" onClick={commentsOpenHandler}>COMMENTS</button>
-        <button type="button" className="btn btn-primary ordersdiv" onClick={orderssOpenHandler}>ORDERS</button>
+        <button
+          type="button"
+          className="btn btn-primary ordersdiv"
+          onClick={commentsOpenHandler}
+        >
+          COMMENTS
+        </button>
+        <button
+          type="button"
+          className="btn btn-primary ordersdiv"
+          onClick={orderssOpenHandler}
+        >
+          ORDERS
+        </button>
         <div style={{ width: "100%" }}>
-          {page === "comments" && <CommentsList data={comments}/>}
-          {page === "orders" && <OrdersList data={orders} />}
+          {page === "comments" && comments && <CommentsList data={comments} />}
+          {page === "orders" && orders &&<OrdersList data={orders} />}
         </div>
       </div>
     </div>

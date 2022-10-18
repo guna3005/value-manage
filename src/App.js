@@ -67,14 +67,14 @@ function App() {
 
       <Route path="/report" exact>
         <DisplayFlex>
-          <Report type={"update"} />
+          <Report  />
         </DisplayFlex>
       </Route>
       <Route path="/attendence" exact>
-        <DisplayFlex>
-          <Attendence />
-        </DisplayFlex>
-      </Route>
+      <DisplayFlex>
+        <Attendence type={"update"} dates ={[]}/>
+      </DisplayFlex>
+    </Route>;
       <Route path="/comments" exact>
         <CommentsList />
       </Route>
