@@ -9,7 +9,7 @@ const noDaysInMonth  = (year, month) =>{
   return new Date(year, month, 0).getDate();
 }
 const Attendence = (props) => {
-  console.log("in addtendence");
+  // console.log("in addtendence");
   const year = useSelector(state => state.attendance.year)
   let month = useSelector(state => state.attendance.month)
   let firstDate = new Date(year,month-1,0).getDay();
@@ -18,7 +18,7 @@ const Attendence = (props) => {
   let [dates , setDates ] = useState(props.dates)
   useEffect(() => {
     let attdata = []
-    console.log("fetching rep attendence",user,token);
+    // console.log("fetching rep attendence",user,token);
     if (user === "manager" && props.type==="update") {
       async function fetchAttendance() {
         const response = await fetch(
@@ -62,6 +62,7 @@ const Attendence = (props) => {
       
     }
   }, []) 
+  // console.log(dates);
   const dispatch = useDispatch();
   const date = new Date();
   date.setMonth(month-1);
@@ -85,7 +86,7 @@ const Attendence = (props) => {
   const increaseYearHandler = () =>{
     dispatch(AttendanceActions.increaseYear())
   }
-  console.log(dates);
+  // console.log(dates);
   return (
       <div className="maindiv">
         <div className="headerdiv">

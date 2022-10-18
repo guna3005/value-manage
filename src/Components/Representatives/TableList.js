@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import RetailerRender from "../Retailers/RetailerRender";
 
 const TableList = (props) => {
-  const Fake_retailers = useSelector((state) => state.retailers);
+  const req_data = props.data;
   return (
     <>
       <div className="divwithtable">
@@ -20,7 +20,7 @@ const TableList = (props) => {
             </tr>
           </thead>
           <tbody>
-            {Fake_retailers.map((data) => {
+            {req_data.map((data) => {
               return (
                 <RetailerRender
                   key={data.id}

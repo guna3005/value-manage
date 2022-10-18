@@ -20,21 +20,24 @@ const AddRetailer = () => {
   const token = useSelector((state) => state.users.token);
   const  disptach =  useDispatch();
   const history = useHistory();
+  const ERPRef = useRef();
   const [inputEmptyError , setinputEptyError] = useState(false);
   const formSubmitHandler = (event) =>{
+    let userDataObject = {
+      id: retailersData.length + 1,
+      name: nameRef.current.value,
+      businessName: businessnameref.current.value,
+      phoneNumber: phoneNoRef.current.value,
+      owner: ownerRef.current.value,
+        houseNo: houseNoRef.current.value,
+        street: streetRef.current.value,
+        city: cityRef.current.value,
+        pinCode: pinCodeRef.current.value,
+        state: stateRef.current.value,
+    }
+    if (user === "rep"){
       event.preventDefault();
-      let userDataObject = {
-        id: retailersData.length + 1,
-        name: nameRef.current.value,
-        businessName: businessnameref.current.value,
-        phoneNumber: phoneNoRef.current.value,
-        owner: ownerRef.current.value,
-          houseNo: houseNoRef.current.value,
-          street: streetRef.current.value,
-          city: cityRef.current.value,
-          pinCode: pinCodeRef.current.value,
-          state: stateRef.current.value,
-      }
+      
       for (const i in userDataObject){
         console.log(userDataObject[i].length === 0,userDataObject[i].length,userDataObject[i]);
         if(userDataObject[i].length === 0){
@@ -57,7 +60,34 @@ const AddRetailer = () => {
         )
         console.log(response.json);
       }
-      postNewRetailer();
+      postNewRetailer();}
+    if(user === "manager"){
+        userDataObject = {...userDataObject , ERP : ERPRef.current.value }
+        event.preventDefault();
+      
+      for (const i in userDataObject){
+        console.log(userDataObject[i].length === 0,userDataObject[i].length,userDataObject[i]);
+        if(userDataObject[i].length === 0){
+          setinputEptyError(true)
+          return 
+        }
+      }
+        if (inputEmptyError ===  true){
+          setinputEptyError(false)
+        }
+        const postNewRetailer = async () =>{
+          const response = await fetch("http://localhost:8080/api/v1/manager/distributors/new",{
+            method: 'POST' ,
+            body : JSON.stringify(userDataObject),
+            headers : { 
+              "accessToken": "Bearer " + token,
+              'Content-Type' : 'application/json'
+            }
+          }
+          )
+        }
+        postNewRetailer();
+    }
       
 
       // disptach(RetailerActions.addRetailer(userDataObject));,
@@ -93,7 +123,7 @@ const AddRetailer = () => {
               <label className="form-label" htmlFor="typeText">
                 ERP  :
               </label>
-              <input ref ={streetRef}  type="text" id="typeText" className="form-contorl inputfeild" />
+              <input ref ={ERPRef}  type="text" id="typeText" className="form-contorl inputfeild" />
             </div>)}
           <div className="form-outline">
             <label className="form-label" htmlFor="typeText">

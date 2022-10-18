@@ -5,14 +5,15 @@ import './Attendance.css'
 import { AttendanceActions } from '../Components/store/AttandanceStore'
 const AttendanceRow = (props) => {
     // console.log("hello");
+    const attdata1 = props.dates
+    // const [attdata1, setattdata ] = useState(attdat)
     const year = useSelector(state => state.attendance.year)
     const month = useSelector(state => state.attendance.month)
     const token = useSelector(state => state.users.token)
     const dispatch = useDispatch()
     const user = useSelector(state => state.users.user)
     let data = null;    
-    // console.log(props.dates);
-    const attdata  = props.dates;
+    
     
     const markattendanceHandler = () => {
         const attendencemark = async () =>{
@@ -26,12 +27,12 @@ const AttendanceRow = (props) => {
               })
         }
         attendencemark()
-        // setattdata(data => [...data,new Date()])
+        // setattdata1(data => [...data,new Date()])
 
     }
     const setclass = (no) => {
         // return "present"
-        // console.log(props.arr[props.st + no],attdata);
+        // console.log(props.arr[props.st + no],attdata1);
         data = null;
         if (props.arr[props.st + no] === null){
             return 
@@ -41,13 +42,9 @@ const AttendanceRow = (props) => {
         let val = new Date(year,month-1,props.arr[props.st + no]);
 
         let curr_date = val.getTime();
-        // console.log(curr_date,attdata);
-        // for (const i in attdata){
-        //     console.log(new Date(attdata[i].date),attdata[i],curr_date);
-        // }
         const is_today = (val.getDate() === today.getDate() && val.getMonth() === today.getMonth() && val.getFullYear() === today.getFullYear())
         if(is_today){
-            let index = attdata.findIndex(date => (curr_date-new Date(date.date).getTime()) < 846000)
+            let index = attdata1.findIndex(date => (curr_date-new Date(date.date).getTime()) < 846000)
            
             if(props.type === "view"){
                 if (index !== -1){
@@ -70,14 +67,15 @@ const AttendanceRow = (props) => {
         if(today_time < curr_date){
             return 
         }
-        let index = attdata.findIndex(date => new Date(date.date).getTime() === curr_date)
+        // console.log(attdata1,props.dates);
+        let index = attdata1.findIndex(date => new Date(date.date).getTime() === curr_date)
         if (index === -1){
             return "absent"
         }
         return "present"
         
     }
-console.log(attdata);
+// console.log(attdata1);
   return (
     <tr className='dateboxes'>
         <td className={setclass(0)}>{data}</td>

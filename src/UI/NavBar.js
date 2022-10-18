@@ -22,7 +22,9 @@ const NavBar = (props) => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     dispatch(UserActions.setUser(""));
+    dispatch(UserActions.setToken(""))
     history.replace("/login");
+    // window.location.reload();
   };
   const token = useSelector((state) => state.users.token);
   return (

@@ -1,12 +1,73 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import "../Components/Retailers/AddRetailer.css"
 import './Form.css'
 const Form = (props) => {
-  const formSubmitHandler = () => {
-
-  };
+ 
+  const token = useSelector(state => state.users.token)
   const user = useSelector(state => state.users.user)
+  
+  const name = useRef();
+  const nameRef1 = useRef();
+  const nameRef2 = useRef();
+  const nameRef3 = useRef();
+  const commentRef = useRef();
+  const ar = [name , nameRef1,nameRef2,nameRef3 ]
+  const [report , setRepprt] = useState(null)
+  const [viewtype, setviewType] = useState(report  === null)
+  async function fetchReports() {
+    const response = await fetch(
+      `http://localhost:8080/api/v1/${user  === "manager" ? "manager" : "representatives"}/report`,
+      {
+        method: "GET",
+        headers: {
+          "accessToken": "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok){
+       let report1 = await response.json();
+       setRepprt(report1)
+       setviewType(false)
+    }
+  }
+  useEffect(() => {
+    
+    fetchReports();
+    
+    return () => {
+      
+    }
+  }, [viewtype])
+  
+  const formSubmitHandler = () => {
+    async function postReports() {
+      const report_object = {
+        "metTotal" : name.current.value,
+        "metNew" : nameRef1.current.value,
+        "orders" : nameRef3.current.value,
+        "metOld" : nameRef2.current.value,
+        "text":commentRef.current.value
+      }
+      const response = await fetch(
+        `http://localhost:8080/api/v1/${user  === "manager" ? "manager" : "representatives"}/report/new`,
+        {
+          method: "POST",
+          body : JSON.stringify(report_object),
+          headers: {
+            "accessToken": "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
+    
+    postReports();
+    fetchReports();
+    
+  
+  };
   let arr =[];
 
   if (user === "rep"){
@@ -25,37 +86,42 @@ const Form = (props) => {
         "Orders Placed"
     ]
 }
+  if(!viewtype){
+    console.log(report);
+  }
   return (
     <div className="formflexdiv">
       <div className="formmaindiv">
         <form onSubmit={formSubmitHandler}>
-          {arr.map((data) => (
+          {arr.map((data,index) => (
             <div key={Math.random()} className="form-outline">
               <label className="formlabel" htmlFor="typeText">
                 {data } :
               </label>
-              {props.type === "update" ? <input
-                // ref={nameRef}
+              {viewtype ? <input
+                ref = {ar[index]}
                 type="number"
               
                 id="typeText"
                 className="form-contorl forminputfeild"
-              /> : <h6 className="forminputfeild" >{data}</h6>}
+              /> : <h6 className="forminputfeild" >{index === 0 ? report["metTotal"] : index === 1 ? report["metNew"] : index === 2 ? report["metOld"] : report["orders"]}</h6>}
             </div>
           ))}
           <div style={{"marginLeft":"10px"}}>
           Comment :
-          {props.type === "update" ? <div className="form-outline w-100 p-2">
+          {viewtype ? <div className="form-outline w-100 p-2">
                 <textarea 
+                ref={commentRef}
                   className="form-control"
                   id="textAreaExample"
                   rows={4}
                   style={{ background: "#fff" }}
                   defaultValue={""}
                 />
-            </div> : <h6 className="forminputfeild" style={{"marginTop":"0px","maxWidth":"100%"}}>comment</h6>}
+            </div> : <h6 className="forminputfeild" style={{"marginTop":"0px","maxWidth":"100%"}}>{report["comment"]["text"]}</h6>}
             </div>
-            {props.type === "update" && <button
+            {viewtype && <button
+          onClick={formSubmitHandler}
             type="button"
             className="btn btn-primary "
             style={{"marginLeft":"200px","marginTop":"20px"}}

@@ -6,7 +6,7 @@ const Report = (props) => {
   return (
     // <div style={{"display":"flex"}}>
     //     <NavBar />
-        <Form type = {props.type}/>
+        <Form />
     // {/* </div> */}
   )
 }

@@ -65,7 +65,7 @@ const Login = (props) => {
         localStorage.setItem("user","rep")
       }
       localStorage.setItem("token",data.accessToken)
-      
+      dispatch(UserActions.setToken(data.accessToken))
       history.replace("/dashboard");
     };
     authorise();
