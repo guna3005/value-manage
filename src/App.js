@@ -17,7 +17,6 @@ import DisplayFlex from "./Components/Display/DisplayFlex";
 
 function App() {
   let user = useSelector((state) => state.users.user);
-  console.log(user);
   return (
     <>
       <Route path="/" exact>
@@ -26,11 +25,13 @@ function App() {
       <Route path="/login" exact>
         <Login />
       </Route>
-      {user === "" && <Switch>
-        <Route path="/*">
-          <Redirect to="/login" />
-        </Route>
-        </Switch>}
+      {user === "" && (
+        <Switch>
+          <Route path="/*">
+            <Redirect to="/login" />
+          </Route>
+        </Switch>
+      )}
       {user === "rep" && (
         <Switch>
           <Route path="/all-retailers" exact>
@@ -47,7 +48,6 @@ function App() {
           </Route>
         </Switch>
       )}
-
       {user === "manager" && (
         <Switch>
           <Route path="/all-representatives" exact>
@@ -64,17 +64,17 @@ function App() {
           </Route>
         </Switch>
       )}
-
       <Route path="/report" exact>
         <DisplayFlex>
-          <Report  />
+          <Report />
         </DisplayFlex>
       </Route>
       <Route path="/attendence" exact>
-      <DisplayFlex>
-        <Attendence type={"update"} dates ={[]}/>
-      </DisplayFlex>
-    </Route>;
+        <DisplayFlex>
+          <Attendence type={"update"} dates={[]} />
+        </DisplayFlex>
+      </Route>
+      ;
       <Route path="/comments" exact>
         <CommentsList />
       </Route>

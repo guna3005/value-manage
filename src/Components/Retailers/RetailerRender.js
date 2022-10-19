@@ -21,7 +21,7 @@ const RetailerRender = (props) => {
         )}
         {from_dist && props.data.name}
       </td>
-      
+
       <td>{props.data.businessName}</td>
       <td>{props.data.owner}</td>
       <td>{props.data.phoneNumber}</td>

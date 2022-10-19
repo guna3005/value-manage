@@ -8,25 +8,17 @@ import {
   BsFillBarChartFill,
   BsCircleHalf,
 } from "react-icons/bs";
-import DisplayFlex from "../Components/Display/DisplayFlex";
-import Attendence from "./Attendence";
-import { Route } from "react-router-dom";
-// import './NavBar.css'
 const NavBar = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.users.user);
-  // const state = useSelector((state) => state);
-  // console.log(user, state, " in navbar");
   const logoutHandler = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     dispatch(UserActions.setUser(""));
-    dispatch(UserActions.setToken(""))
+    dispatch(UserActions.setToken(""));
     history.replace("/login");
-    // window.location.reload();
   };
-  const token = useSelector((state) => state.users.token);
   return (
     <main
       className="d-flex flex-nowrap"

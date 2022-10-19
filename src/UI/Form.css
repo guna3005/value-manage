@@ -1,31 +1,27 @@
-.formmaindiv{
-    margin-top: 10%;
-    background-color: white;
-    width: 500px;
-    min-width: 500px;
-    height: auto;
-    margin-left: 30%;
-    padding: 20px;
-    border-radius: 15px;
-    text-align: left;
-    margin-right: 400px;
-
+.formmaindiv {
+  margin-top: 10%;
+  background-color: white;
+  width: 500px;
+  min-width: 500px;
+  height: auto;
+  margin-left: 30%;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: left;
+  margin-right: 400px;
 }
 
 .formflexdiv {
-    width:100%;
-    height: 100%;
-    align-items: center;
-
+  width: 100%;
+  height: 100%;
+  align-items: center;
 }
 
-.forminputfeild{
-    /* margin: 10px; */
-    float: right;
-    margin-top: 10px;
-
+.forminputfeild {
+  float: right;
+  margin-top: 10px;
 }
 
 .formlabel {
-    margin: 10px;
+  margin: 10px;
 }

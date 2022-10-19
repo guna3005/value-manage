@@ -1,35 +1,35 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-// import { useSelector } from "react-redux";
 import Comments from "./Comments";
 import NewComments from "./NewComments";
 const CommentsList = (props) => {
   const { retailerid } = useParams();
   const [comments, setComments] = useState(props.data);
-  const token = useSelector(state => state.users.token)
+  const token = useSelector((state) => state.users.token);
   const addCommentHandler = (comment) => {
     const addComment = async () => {
       await fetch(
-        "https://valuemanage.herokuapp.com/api/v1/representatives/comment/"+retailerid,
+        "https://valuemanage.herokuapp.com/api/v1/representatives/comment/" +
+          retailerid,
         {
           method: "POST",
           headers: {
-            "accessToken": "Bearer " + token,
+            accessToken: "Bearer " + token,
             "Content-Type": "application/json",
           },
-          body:JSON.stringify({"text":comment})
+          body: JSON.stringify({ text: comment }),
         }
       );
     };
     addComment();
-    console.log(comment);
-    setComments(state => {
-      return [...state,{text : comment,
-      date : new Date().toLocaleDateString('en-CA') }]
-    })
+    setComments((state) => {
+      return [
+        ...state,
+        { text: comment, date: new Date().toLocaleDateString("en-CA") },
+      ];
+    });
   };
-  console.log(comments);
   return (
     <div className="App">
       <section style={{ backgroundColor: " #bdddff" }}>

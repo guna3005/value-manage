@@ -1,6 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
-// import NavBar from "../../UI/NavBar";
 import RetailerRender from "../Retailers/RetailerRender";
 
 const TableList = (props) => {

@@ -1,14 +1,13 @@
-import React from 'react'
-import NavBar from '../../UI/NavBar'
+import React from "react";
+import NavBar from "../../UI/NavBar";
 
 const DisplayFlex = (props) => {
-  // console.log("hi");
   return (
-    <div style={{"display":"flex"}}>
-        <NavBar />
-        {props.children}
+    <div style={{ display: "flex" }}>
+      <NavBar />
+      {props.children}
     </div>
-  )
-}
+  );
+};
 
-export default DisplayFlex
+export default DisplayFlex;
