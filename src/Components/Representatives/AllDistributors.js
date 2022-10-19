@@ -17,7 +17,6 @@ const AllDistributors = () => {
             {
               "accessToken" : "Bearer "+token,
               'Content-Type' : 'application/json',
-              'Access-Control-Allow-Origin': '*'
             }
             }
         );

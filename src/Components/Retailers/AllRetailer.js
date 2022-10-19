@@ -20,7 +20,6 @@ const AllRetailer = (props) => {
             {
               "accessToken" : "Bearer "+token,
               'Content-Type' : 'application/json',
-              'Access-Control-Allow-Origin': '*'
             }
             }
         );
