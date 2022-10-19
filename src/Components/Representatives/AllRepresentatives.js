@@ -12,7 +12,7 @@ const AllRepresentatives = () => {
     return () => {
       async function fetchReps() {
         const response = await fetch(
-          "http://localhost:8080/api/v1/manager/representatives",
+          "https://valuemanage.herokuapp.com/api/v1/manager/representatives",
             {
               method:"GET",
               headers : 

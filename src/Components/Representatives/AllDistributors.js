@@ -10,7 +10,7 @@ const AllDistributors = () => {
     return () => {
       async function fetchDistributors() {
         const response = await fetch(
-          "http://localhost:8080/api/v1/manager/distributors",
+          "https://valuemanage.herokuapp.com/api/v1/manager/distributors",
             {
               method:"GET",
               headers : 

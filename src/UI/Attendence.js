@@ -22,7 +22,7 @@ const Attendence = (props) => {
     if (user === "manager" && props.type==="update") {
       async function fetchAttendance() {
         const response = await fetch(
-          "http://localhost:8080/api/v1/manager/attendance/all",
+          "https://valuemanage.herokuapp.com/api/v1/manager/attendance/all",
           {
             method: "GET",
             headers: {
@@ -42,7 +42,7 @@ const Attendence = (props) => {
       console.log("fetching rep attendence");
       async function fetchAttendancerep() {
         const response = await fetch(
-          "http://localhost:8080/api/v1/representatives/attendence/all",
+          "https://valuemanage.herokuapp.com/api/v1/representatives/attendence/all",
           {
             method: "GET",
             headers: {

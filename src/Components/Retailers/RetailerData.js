@@ -17,7 +17,7 @@ const RetailerData = () => {
     const fetchRetailer = async () => {
       // console.log("inside the fetch");
       const response = await fetch(
-        "http://localhost:8080/api/v1/representatives/retailers/" + retailerid,
+        "https://valuemanage.herokuapp.com/api/v1/representatives/retailers/" + retailerid,
         {
           method: "GET",
           headers: {

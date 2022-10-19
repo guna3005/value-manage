@@ -40,7 +40,7 @@ const Login = (props) => {
     }
     console.log("post from here");
     const authorise = async () => {
-      const response = await fetch("http://localhost:8080/api/v1/auth", {
+      const response = await fetch("https://valuemanage.herokuapp.com/api/v1/auth", {
         method: "POST",
 
         body: JSON.stringify({

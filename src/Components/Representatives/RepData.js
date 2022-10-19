@@ -22,7 +22,7 @@ const RepData = () => {
     console.log("print inside useeffect");
     async function repdata() {
       const response = await fetch(
-        "http://localhost:8080/api/v1/manager/representatives/"+repid,
+        "https://valuemanage.herokuapp.com/api/v1/manager/representatives/"+repid,
         {
           method: "GET",
           headers: {

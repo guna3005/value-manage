@@ -17,7 +17,7 @@ const Form = (props) => {
   const [viewtype, setviewType] = useState(report  === null)
   async function fetchReports() {
     const response = await fetch(
-      `http://localhost:8080/api/v1/${user  === "manager" ? "manager" : "representatives"}/report`,
+      `https://valuemanage.herokuapp.com/api/v1/${user  === "manager" ? "manager" : "representatives"}/report`,
       {
         method: "GET",
         headers: {
@@ -51,7 +51,7 @@ const Form = (props) => {
         "text":commentRef.current.value
       }
       const response = await fetch(
-        `http://localhost:8080/api/v1/${user  === "manager" ? "manager" : "representatives"}/report/new`,
+        `https://valuemanage.herokuapp.com/api/v1/${user  === "manager" ? "manager" : "representatives"}/report/new`,
         {
           method: "POST",
           body : JSON.stringify(report_object),

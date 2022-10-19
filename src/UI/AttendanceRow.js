@@ -17,7 +17,7 @@ const AttendanceRow = (props) => {
     
     const markattendanceHandler = () => {
         const attendencemark = async () =>{
-            await fetch(`http://localhost:8080/api/v1/${user === "manager" ? "manager" : "representatives"}/attendance/new`,{
+            await fetch(`https://valuemanage.herokuapp.com/api/v1/${user === "manager" ? "manager" : "representatives"}/attendance/new`,{
                 method: 'POST' ,
                 body : JSON.stringify({date : null}),
                 headers : { 

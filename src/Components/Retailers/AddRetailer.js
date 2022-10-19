@@ -49,7 +49,7 @@ const AddRetailer = () => {
         setinputEptyError(false)
       }
       const postNewRetailer = async () =>{
-        const response = await fetch("http://localhost:8080/api/v1/representatives/retailers/new",{
+        const response = await fetch("https://valuemanage.herokuapp.com/api/v1/representatives/retailers/new",{
           method: 'POST' ,
           body : JSON.stringify(userDataObject),
           headers : { 
@@ -76,7 +76,7 @@ const AddRetailer = () => {
           setinputEptyError(false)
         }
         const postNewRetailer = async () =>{
-          const response = await fetch("http://localhost:8080/api/v1/manager/distributors/new",{
+          const response = await fetch("https://valuemanage.herokuapp.com/api/v1/manager/distributors/new",{
             method: 'POST' ,
             body : JSON.stringify(userDataObject),
             headers : { 

@@ -38,7 +38,7 @@ const Comments = (props) => {
             <p className="fw-bold mb-1 justify-content-center" style={{textAlign:"left" ,marginLeft: "35px" }}>{props.name}</p>
             <div className="d-flex align-items-start mb-3">
               <p className="mb-0" style={{ marginLeft: "35px" }}>
-                {props.date}
+                {new Date(props.date).toLocaleDateString('en-CA')}
               </p>
             </div>
             <p className="mb-0" style={{ marginLeft: "35px" }}>

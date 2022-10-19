@@ -2,12 +2,13 @@ import React, { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { RetailerDataActions } from '../Components/store/RetailerDataRedux';
 
-const NewComments = () => {
+const NewComments = (props) => {
     const inputRef = useRef();
     const disptach= useDispatch();
     const reqData = useSelector(state => state.activeMembers)
     const addCommentHandler = () =>{
-        disptach(RetailerDataActions.addComment({id:reqData.retailer_id , comment : inputRef.current.value}))
+        // disptach(RetailerDataActions.addComment({id:reqData.retailer_id , comment : inputRef.current.value}))
+        props.fun(inputRef.current.value)
     }
   return (
     <section style={{ backgroundColor: "#f8f9fa" }}>

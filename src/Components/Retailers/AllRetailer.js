@@ -13,7 +13,7 @@ const AllRetailer = (props) => {
     return () => {
       async function fetchRetailers() {
         const response = await fetch(
-          "http://localhost:8080/api/v1/representatives/retailers",
+          "https://valuemanage.herokuapp.com/api/v1/representatives/retailers",
             {
               method:"GET",
               headers : 
